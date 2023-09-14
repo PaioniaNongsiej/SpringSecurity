@@ -1,10 +1,16 @@
 package com.example.LoginSecurity1.Controller;
 
+import com.example.LoginSecurity1.Security.UserPrincipal;
+
 public class JwtAuthenticationResponse {
     private String accessToken;
     private String tokenType = "Bearer";
 
-    public JwtAuthenticationResponse(String accessToken) {
+	public JwtAuthenticationResponse() {
+        
+    }
+	
+	public JwtAuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
     }
 

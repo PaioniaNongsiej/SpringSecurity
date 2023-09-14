@@ -1,5 +1,7 @@
 package com.example.LoginSecurity1.Controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginRequest {
     private String usernameOrEmail;
@@ -14,10 +16,12 @@ public class LoginRequest {
         this.usernameOrEmail = usernameOrEmail;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
-
+    
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

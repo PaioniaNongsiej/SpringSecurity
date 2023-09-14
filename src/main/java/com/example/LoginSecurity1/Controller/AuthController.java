@@ -1,20 +1,7 @@
 package com.example.LoginSecurity1.Controller;
 
-import com.example.LoginSecurity1.Entity.RegisterBusiness;
-import com.example.LoginSecurity1.Entity.Role;
-import com.example.LoginSecurity1.Entity.RoleName;
-import com.example.LoginSecurity1.Entity.User;
-import com.example.LoginSecurity1.Controller.ApiResponse;
-import com.example.LoginSecurity1.Controller.JwtAuthenticationResponse;
-import com.example.LoginSecurity1.Controller.LoginRequest;
-import com.example.LoginSecurity1.Controller.SignUpRequest;
-import com.example.LoginSecurity1.Dto.BusinessDto;
-import com.example.LoginSecurity1.Repository.BusinessRepository;
-import com.example.LoginSecurity1.Repository.RoleRepository;
-import com.example.LoginSecurity1.Repository.UserRepository;
-import com.example.LoginSecurity1.Security.JwtTokenProvider;
-import com.example.LoginSecurity1.Service.BusinessService;
-import com.example.LoginSecurity1.Exceptions.AppException;
+import java.net.URI;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,17 +11,27 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
-import java.util.Collections;
+import com.example.LoginSecurity1.Dto.BusinessDto;
+import com.example.LoginSecurity1.Entity.Role;
+import com.example.LoginSecurity1.Entity.RoleName;
+import com.example.LoginSecurity1.Entity.User;
+import com.example.LoginSecurity1.Exceptions.AppException;
+import com.example.LoginSecurity1.Repository.BusinessRepository;
+import com.example.LoginSecurity1.Repository.RoleRepository;
+import com.example.LoginSecurity1.Repository.UserRepository;
+import com.example.LoginSecurity1.Security.JwtTokenProvider;
+import com.example.LoginSecurity1.Service.BusinessService;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -69,7 +66,6 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = tokenProvider.generateToken(authentication);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }

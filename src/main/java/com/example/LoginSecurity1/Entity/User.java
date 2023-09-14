@@ -1,5 +1,6 @@
 package com.example.LoginSecurity1.Entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +42,42 @@ public class User extends DateAudit{
     private String email;
 
     private String password;
+    
+    //lock account
+    
+    private boolean isAccountNonLocked;
+    
+    private int failedAttempt;
+    
+    private Date  locktime;
+    
+    
+    public boolean isAccountNonLocked() {
+		return isAccountNonLocked;
+	}
 
-    @ManyToMany(fetch = FetchType.LAZY)
+	public void setAccountNonLocked(boolean isAccountNonLocked) {
+		this.isAccountNonLocked = isAccountNonLocked;
+	}
+
+	public int getFailedAttempt() {
+		return failedAttempt;
+	}
+
+	public void setFailedAttempt(int failedAttempt) {
+		this.failedAttempt = failedAttempt;
+	}
+
+	public Date getLocktime() {
+		return locktime;
+	}
+
+	public void setLocktime(Date locktime) {
+		this.locktime = locktime;
+	}
+	
+
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -90,7 +125,7 @@ public class User extends DateAudit{
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getPassword() {
         return password;
     }

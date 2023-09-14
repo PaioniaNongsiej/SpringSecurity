@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.LoginSecurity1.Entity.User;
@@ -21,4 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByUsername(String username);
 
     Boolean existsByEmail(String email);
+    
+    @Query("update User u set u.failedAttempt=?1 where email=?2")
+    @Modifying
+    public void updateFailedAttempt(int attempt, String email);
 }
